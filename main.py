@@ -1,14 +1,14 @@
-import sys,random
+import sys, random
 from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QWidget, QMainWindow
+from ui import Ui_Form
 
 
-
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_Form):
     def __init__(self):
         super().__init__()
-        uic.loadUi('Ui.ui', self)
+        self.setupUi(self)
         self.pushButton.clicked.connect(self.paint)
         self.do_paint = False
 
@@ -26,17 +26,15 @@ class MyWidget(QMainWindow):
 
     def draw_square(self, im):
         try:
-            rad = random.randint(10,150)
-            im.setPen(QColor('yellow'))
+            rad = random.randint(10, 150)
+            im.setPen(QColor(random.randint(0, 256), random.randint(0, 256), random.randint(0, 256)))
 
-            im.drawEllipse(20, 20, 2*rad, 2*rad)
+            im.drawEllipse(20, 20, 2 * rad, 2 * rad)
         except Exception as el:
             print(el)
 
 
-
 if __name__ == '__main__':
-
     app = QApplication(sys.argv)
     ex = MyWidget()
     ex.show()
